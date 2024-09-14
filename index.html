@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="MyStyles.css">
+</head>
+<body>
+    <header>
+        <h1>Your Tasklist</h1>
+    </header>
+    <main>
+        <div class="btn-items">
+            <div class="task-container">
+                <button class="buttonAdd" onclick="addTask()">Add Task</button>
+                <button class="buttonRemove" onclick="removeTask()">Remove Task</button>
+            </div>
+            <ul id="taskList">
+
+            </ul>
+        </div>
+
+        <div class="taskInput" id="taskForm" style="display: none;">
+            <input type="text" id="taskInputField" placeholder="Add a Task">
+            <button class="buttonAdd" onclick="addTask()">Add Task</button>
+        </div>
+        <div class="RemoveTaskInput" id="removeTask" style="display: none;">
+            <input type="text" id="remove" placeholder="Task ID to remove">
+            <button class="ButtonRemove" onclick="removeTaskById()">Remove Task</button>
+        </div>
+    </main>
+    <footer></footer>
+    <script src="App.js"></script>
+</body>
+</html>

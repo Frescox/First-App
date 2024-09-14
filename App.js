@@ -1,13 +1,13 @@
 let taskId = 0; // Global counter for assigning unique IDs to tasks
 
 // Function to show or hide the add task form
-function addTask() {
+function showAddTaskForm() {
     const taskForm = document.getElementById('taskForm');
     taskForm.style.display = taskForm.style.display === 'block' ? 'none' : 'block';
 }
 
 // Function to show or hide the remove task form
-function removeTask() {
+function showRemoveTaskForm() {
     const removeTask = document.getElementById('removeTask');
     removeTask.style.display = removeTask.style.display === 'block' ? 'none' : 'block';
 }
@@ -35,9 +35,9 @@ function addTask() {
 
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('delete-button');
-        deleteButton.textContent = 'Remove';
+        deleteButton.textContent = 'Delete';
         deleteButton.addEventListener('click', function() {
-            removeTask(this);
+            deleteTask(this);
         });
 
         newTask.appendChild(idElement);
@@ -55,50 +55,51 @@ function addTask() {
     }
 }
 
-// Function to remove a task using the remove button
-function removeTask(deleteButton) {
-    const taskToRemove = deleteButton.parentElement.parentElement;
+// Function to delete a task via the delete button
+function deleteTask(deleteButton) {
+    const taskToRemove = deleteButton.parentElement.parentElement; // Get the <li> containing the task
 
     if (taskToRemove) {
         taskToRemove.remove();
-        updateTask();
+        updateTaskList(); // Call update function after deletion
     }
 }
 
-// Function to update the IDs of the remaining tasks
-function updateTask() {
+// Function to update the IDs of remaining tasks
+function updateTaskList() {
     const taskList = document.getElementById('taskList').getElementsByTagName('li');
-    let newID = 1;
+    let newID = 1; // Initialize new ID for remaining tasks
 
     for (let i = 0; i < taskList.length; i++) {
         const task = taskList[i].getElementsByTagName('button')[0];
         task.id = 'task-' + newID;
         taskList[i].id = 'item-' + newID;
 
+        // Update the content of the ID <div> with the new ID
         const idElement = task.getElementsByClassName('task-id')[0];
         if (idElement) {
             idElement.textContent = newID;
         }
 
-        newID++;
+        newID++; // Increment new ID for the next task
     }
 
     taskId = newID - 1; // Update global counter to the last assigned ID
 }
 
-// Function to remove a task by its manually entered ID
+// Function to delete a task by its manually entered ID
 function removeTaskById() {
-    const taskId = document.getElementById('remove').value;
-    const taskToRemove = document.getElementById('item-' + taskId);
+    const taskIdToRemove = document.getElementById('remove').value;
+    const taskToRemove = document.getElementById('item-' + taskIdToRemove);
 
     if (taskToRemove) {
         taskToRemove.remove();
         document.getElementById('remove').value = "";
-        updateTask(); // Call the update function after removal
+        updateTaskList(); // Call update function after deletion
     } else {
-        alert("Task with the specified ID was not found.");
+        alert("Task with the specified ID not found.");
     }
 }
 
-// Call the update function when the page loads to initialize IDs correctly
-updateTask();
+// Call update function when the page loads to initialize IDs correctly
+updateTaskList();
